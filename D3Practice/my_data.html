@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+  <title>Tool Skill</title>
+  <style>
+
+  header{
+    color: tomato;
+    margin: 3rem;
+  }
+  </style>
+</head>
+<body>
+  <header></header>
+  <section>
+    <nav></nav>
+    <content></content>
+  </section>
+  <footer></footer>
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+
+  <script type="text/javascript">
+
+  d3.select("header").append("h1")
+      .text("Design And Programming Skills ");
+
+
+////기준
+    var grade = [0, 1, 2, 3, 4, 5];
+
+
+  var width = 500,
+      height = 400,
+      leftMarginL = 320,
+      topMarginL = 60,
+      leftMarginT = 150,
+      topMarginT = 76,
+      topMarginA = 40,
+      barHeight = 20,
+      barGap = 5,
+      tickGap = 5,
+      tickHeight = 10,
+      barSpacing = barHeight + barGap,
+      translateText = "translate(" + leftMarginT + "," + topMarginT + ")",
+      translateLect = "translate(" + leftMarginL + "," + topMarginL + ")";
+      translateAxi = "translate(" + leftMarginL + "," + topMarginA + ")";
+
+
+  var type = "Coding";
+
+
+      d3.select("header").append("h2")
+          .text("Select Type  " + type);
+
+//선택자
+  var content_svg = d3.select("content").append("svg");   // var content_svg_g = d3.select("content").append("svg").append("g");
+
+  var x = d3.scale.linear()
+    .range([0, width]);
+
+  var y = d3.scale.ordinal()
+    .rangeBands([0, height], 0.2, 0);
+
+    content_svg.attr("width", "1000px")
+        .attr("height", "500px");
+
+
+
+        //축 부분
+            content_svg.append("g").selectAll("line")
+                .data(grade)
+              .enter().append("line")
+                .attr("transform", translateAxi)
+                .attr("stroke", "black")
+                .attr("x1", function(d){return (d*(500/5))})
+                .attr("y1", 0)
+                .attr("x2", function(d){return (d*(500/5))})
+                .attr("y2", -tickHeight);
+
+            content_svg.append("g").selectAll('text')
+                .data(grade)
+              .enter().append("text")
+                .attr("transform", translateAxi)
+                .attr("text-anchor", "middle")
+                .attr("x", function(d) {return (d*(500/5))})
+                .attr("y", -tickHeight - tickGap)
+                .text(function(d) {return d});
+
+
+
+////콜백함수!
+  d3.csv("skills.csv", function(error, data){
+  var mydata = data.filter(function(element) {return element.type == type});
+      x.domain([0, d3.max(mydata, function(element) { return element.point; })]);
+      y.domain(mydata.map(function(element) { return element.programs}));
+
+      //삽입 .selectAll, .data, .enter().append(~)
+      content_svg.append("g").selectAll("rect")
+          .data(mydata)
+        .enter().append("rect")
+          .attr("transform", translateLect)
+          .attr("x", 0)
+          .attr("y", function(d){return y(d.programs)} )     // var y_position = function(d){return d*25};
+          .attr("width", function(d) { return x(d.point)})
+          .attr("height", barHeight);
+
+
+        content_svg.append("g").selectAll("text")
+            .data(mydata)
+          .enter().append("text")
+            .attr("transform", translateText)
+            .attr("x", leftMarginT)
+            .attr("y", function(d) { return y(d.programs)})
+            .attr("text-anchor", "end")
+            .text(function(d){return d.programs});
+
+
+
+});
+
+
+
+  </script>
+
+</body>
+</html>
+
+
+
+
+<!-- //line
+  var grade = [
+    {grd:"A+", value:4.5},
+    {grd:"A0", value:4.0},
+    {grd:"B+", value:3.5},
+    {grd:"B0", value:3.0},
+    {grd:"C+", value:2.5},
+    {grd:"C0", value:2.0},
+    {grd:"D+", value:1.5},
+    {grd:"D0", value:1.0},
+    {grd:"E", value:0.5},
+    {grd:"F", value:0}]; -->

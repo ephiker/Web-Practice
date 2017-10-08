@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      *{/*사이즈 계산 하는 방법으로 일반적으로 보더를 포함하여 사이즈를 재기 위해 보더박스로 설정*/
+        box-sizing: border-box;
+      }
+
+      .container{
+        border: 1px solid black;
+      }
+      .container>*{ /*header, content, footer*/
+        border: 1px solid red;
+        overflow: hidden; /*div container를 넘어가는 녀석들을 짤라버리는 것*/
+      }
+      .container>.content>*{
+        border: 1px solid green;
+        padding-bottom: 2500px; /*top에서 bottom까지 보더를 끊김 없이 긋는 방법 */
+        margin-bottom: -2500px;
+      }
+      .container>.content{
+        padding-left: 200px;
+        padding-right: 150px;
+      }/*좌우로 패딩 값을 주어 content를 가운데로 위치*/
+      .container .content>*{
+        float: left;
+      }/*content 내부의 nav, main, aside에 float 적용*/
+      .container footer{
+        clear: both;
+      }/*clear both를 하면 float의 영향을 받지 않게 되고 원래 자기 자리에 위치하게 된다*/
+      .container .content main{
+        width: 100%;
+      }
+      .container .content nav{ /*nav를 왼쪽으로 붙이는 방법*/
+        width: 200px;
+        margin-left: -100%; /*main에 붙이는 방법*/
+        left: -200px; /*nav의 자리로 이동*/
+        position: relative; /*static이 기본값이므로 relative로 바꾸어 주어야 움직임 */
+      }
+      .container .content aside{ /*오른쪽 공간에 aside를 붙이는 방법*/
+        width: 150px;
+        margin-right:-150px;/*width와 margin을 같은 값으로 하면 aside는 부피감이 없어진다*/
+      }
+
+
+      @media (max-width:450px){/*미디어쿼리로 크기에 대한 배치를 2분할 해준다*/
+        .container>*{ /*header, content, footer*/
+          border: 1px solid red;
+          overflow: visible; /*div container를 넘어가는 녀석들을 짤라버리는 것*/
+        }
+        .container>.content>*{
+          border: 1px solid green;
+          padding-bottom: 0px; /*top에서 bottom까지 보더를 끊김 없이 긋는 방법 */
+          margin-bottom: 0px;
+        }
+        .container>.content{
+          padding-left: 0px;
+          padding-right: 0px;
+        }/*좌우로 패딩 값을 주어 content를 가운데로 위치*/
+        .container .content>*{
+          float: none;
+        }/*content 내부의 nav, main, aside에 float 적용*/
+        .container footer{
+          clear: both;
+        }/*clear both를 하면 float의 영향을 받지 않게 되고 원래 자기 자리에 위치하게 된다*/
+        .container .content main{
+          width: 100%;
+        }
+        .container .content nav{ /*nav를 왼쪽으로 붙이는 방법*/
+          width: auto;;
+          margin-left: 0; /*main에 붙이는 방법*/
+          left: 0; /*nav의 자리로 이동*/
+          position: relative; /*static이 기본값이므로 relative로 바꾸어 주어야 움직임 */
+        }
+        .container .content aside{ /*오른쪽 공간에 aside를 붙이는 방법*/
+          width: auto;
+          margin-right:0;/*width와 margin을 같은 값으로 하면 aside는 부피감이 없어진다*/
+      }
+
+
+    </style>
+
+
+  </head>
+
+  <body>
+  <div class="container">
+    <header>
+      <h1>HEADER</h1>
+    </header>
+
+
+    <section class="content">
+      <main>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem facere itaque nisi ipsum voluptate alias, ea vitae nemo, voluptas facilis sunt tenetur harum quos cumque unde aut obcaecati atque modi nobis. Maxime molestias, veritatis alias sapiente quo fugiat provident. Provident totam asperiores laboriosam dignissimos, cupiditate, voluptatum dolore nam repellat architecto minus consequuntur. Officiis magni reprehenderi!
+      </main>
+
+      <nav>
+        <ul>
+          <li>item</li>
+          <li>item</li>
+          <li>item</li>
+        </ul>
+      </nav>
+
+      <aside>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores vel quod veniam, expedita consectetur laborum corrupti voluptates excepturi illo provident.      </aside>
+    </section>
+
+
+    <footer>
+      FOOTER
+    </footer>
+  </div>
+</body>
+</html>

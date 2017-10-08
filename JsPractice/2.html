@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>2</title>
+
+    <style media="screen">
+      ul li{
+        font-size: 40px;
+      }
+
+      li{
+        color: purple;
+      }
+      .em{
+        text-decoration: underline;
+      }
+      .em2{
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <ol id="target">
+      <li class="em">html</li>
+      <li>css</li>
+      <li>javascript</li>
+    </ol>
+    <ul>
+      <li class="em">안드레</li>
+      <li>김승현</li>
+      <li>심호철</li>
+    </ul>
+    <input type="button" value="강조" 
+    onclick="document.getElementById('target').className='em2'" />
+  </body>
+</html>
